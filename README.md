@@ -5,7 +5,7 @@ The output of this project is a standalone, market checkout component with reada
 ## Getting Started
 
 To run the application, download Checkout-Component-3.0 project repository and open it in your IDE.
-You can either run the app from IDE console level or you can build a project and open standalone JAR file located in "target" folder
+You can either run the app from IDE console level or you can build a project with Maven and open standalone JAR file located in "target" folder
 
 ### How to use it
 
