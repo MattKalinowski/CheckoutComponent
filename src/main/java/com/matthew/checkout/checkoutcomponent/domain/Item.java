@@ -27,8 +27,8 @@ public class Item {
         return itemName;
     }
 
-    public void setItemName(String itemId) {
-        this.itemName = itemId;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public double getPrice() {

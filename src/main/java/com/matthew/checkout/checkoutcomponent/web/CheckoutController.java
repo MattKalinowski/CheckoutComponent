@@ -23,10 +23,19 @@ public class CheckoutController {
         checkoutService.addItem(item);
     }
 
-    @GetMapping("/price")
+    @GetMapping("items/price")
     public double getTotalPrice() {
         return checkoutService.getPrice();
     }
 
+    @DeleteMapping("items/{itemId}")
+    public void removeItem(@PathVariable long itemId) {
+        checkoutService.deleteItem(itemId);
+    }
+
+    @DeleteMapping("/items")
+    public void removeAllItems() {
+        checkoutService.deleteAll();
+    }
     
 }

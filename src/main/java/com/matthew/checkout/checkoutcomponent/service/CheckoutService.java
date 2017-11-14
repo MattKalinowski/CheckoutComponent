@@ -33,5 +33,14 @@ public class CheckoutService {
         calc.calculateTotalPrice();
         return calc.getTotalPrice();
     }
-    
+
+    public void deleteItem(long itemId) {
+        Item item = new Item();
+        item.setItemId(itemId);
+        itemRepository.delete(item);
+    }
+
+    public void deleteAll() {
+        itemRepository.deleteAll();
+    }
 }

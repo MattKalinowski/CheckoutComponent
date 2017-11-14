@@ -17,23 +17,22 @@ public class PriceCalculator implements IPriceCalculator {
     @Override
     public void determineDiscount() {
 
-        double quantityOfItemA = items.stream().filter(item -> item.getItemName().equals("A")).count();
-        double quantityOfItemB = items.stream().filter(item -> item.getItemName().equals("B")).count();
-        double quantityOfItemC = items.stream().filter(item -> item.getItemName().equals("C")).count();
-        double quantityOfItemD = items.stream().filter(item -> item.getItemName().equals("D")).count();
+        if (quantityOfItem("A") > 14) {
+            discount += (quantityOfItem("A") * returnItemDiscount("A"));
+        }
+        if (quantityOfItem("B") > 9) {
+            discount += (quantityOfItem("B") * returnItemDiscount("B"));
+        }
+        if (quantityOfItem("C") > 7) {
+            discount += (quantityOfItem("C") * returnItemDiscount("C"));
+        }
+        if (quantityOfItem("D") > 4) {
+            discount += (quantityOfItem("D") * returnItemDiscount("D"));
+        }
+    }
 
-        if (quantityOfItemA > 14) {
-            discount = discount + (quantityOfItemA * returnItemDiscount("A"));
-        }
-        if (quantityOfItemB > 9) {
-            discount = discount + (quantityOfItemB * returnItemDiscount("B"));
-        }
-        if (quantityOfItemC > 7) {
-            discount = discount + (quantityOfItemC * returnItemDiscount("C"));
-        }
-        if (quantityOfItemD > 4) {
-            discount = discount + (quantityOfItemD * returnItemDiscount("D"));
-        }
+    public double quantityOfItem(String name) {
+        return items.stream().filter(item -> item.getItemName().equals(name)).count();
     }
 
     @Override
@@ -44,6 +43,10 @@ public class PriceCalculator implements IPriceCalculator {
 
     public double getTotalPrice() {
         return totalPrice;
+    }
+
+    public double getDiscount() {
+        return discount;
     }
 
 }
