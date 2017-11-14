@@ -5,40 +5,65 @@ The output of this project is a standalone, market checkout component with reada
 ## Getting Started
 
 To run the application, download Checkout-Component-3.0 project repository and open it in your IDE.
-You can either run the app from IDE console level or you can build a project and open standalone JAR file located in "target" folder
+You can either run the app from IDE console level or you can build a project with Maven and open standalone JAR file located in "target" folder
 
 ### How to use it
 
 Since the application itself doen't include user interface, all work takes place in the background.
-To use created API you first need to set up a corresponding [API consumer](https://github.com/MatthewHayworth/CheckoutConsumer/archive/master.zip) I created for testing purposes. 
-This API consumer is a simple console app, after it running you should see classic Spring ASCII art and couple of log messages bellow it, including:
+You can test the API using special tool, like Postman.
+
+**1. Add items to the basket**
 
 ```
-Choose item (A, B, C, D):
+POST http://localhost:8001/items
 ```
 
-Input should be a single letter from A to D (case insensitive). Each letter represents a seperate item, each item has its own uniqe price and discout type.
-After pressing ENTER, you'll see another input request:
+JSON body:
 
 ```
-Choose quantity: 
+{
+  "itemName": "D"
+}
 ```
 
-This time, you need to put a number of items you're willing to scan. Items numer is directly connected to discount calculating mechanism.
+This operation can be performed any number of times, using one of four item names: A, B, C or D.
+Each item has its own, unique price. 
 
-After choosing item A in quantity of 5, you see something like that:
+
+**2. Show all items in basket**
+
 ```
-Current value of items: 75.0 cents
-
-Type ADD to add more items or EXIT to finish
+GET http://localhost:8001/items
 ```
 
-Now you can either type "add" to add scan another item whose price will be included in a summary or type "exit" to stop the program.
+This way you can see all scanned items, each having ID number, name and price. 
 
-NOTE 1: API consumer works only in collaboration with Checkout Component 3.0(API) process in the background. If you encounter any issuses, make sure that Checkout Component process is running in the background.
 
-NOTE 2: In case of running standalone JAR file, you won't see any apparent visual effect, but the proces of JVM marked as "java" will be added to your computer activity. You can reach it and kill it using process activity monitor.
+**3. Calculate total price of items**
 
+```
+GET http://localhost:8001/items/price
+```
+
+The total price will be a worth of all items, minus discount. Discount applies only when you buy certain amount of items, each items has special discount. When you buy more than 4 of item "D", you'll get 4.5 discount for each acquired item "D".
+
+
+**4. Delete unwanted item**
+
+```
+DELETE http://localhost:8001/items/4
+```
+
+Where number 4 is an item's ID.
+
+
+**5. Empty your basket**
+
+```
+DELETE http://localhost:8001/items
+```
+
+This command will remove all items from the basket
 
 
 ## Built With
