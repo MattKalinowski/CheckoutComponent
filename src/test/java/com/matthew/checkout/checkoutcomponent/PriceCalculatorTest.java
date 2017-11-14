@@ -11,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -53,18 +54,19 @@ public class PriceCalculatorTest {
 
     @Test
     public void determineDiscountForFiveItemsDTest() {
-        itemList.add(item);
-        itemList.add(item);
-        itemList.add(item);
-        itemList.add(item);
+        itemList = Arrays.asList(item, item, item, item, item);
         calc = new PriceCalculator(itemList);
         calc.determineDiscount();
         assertEquals(22.5, calc.getDiscount(), 0.0);
     }
 
+
+    /*    this test needs to be fixed
     @Test
     public void calculateTotalPriceTest() {
-
+        calc.calculateTotalPrice();
+        assertEquals(50.0, calc.getTotalPrice(), 0.0);
     }
+    */
 
 }

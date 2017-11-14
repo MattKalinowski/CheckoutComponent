@@ -37,7 +37,7 @@ public class PriceCalculator implements IPriceCalculator {
 
     @Override
     public void calculateTotalPrice() {
-        double sum =  items.stream().mapToDouble(item -> item.getPrice()).sum();
+        double sum = items.stream().mapToDouble(item -> item.getPrice()).sum();
         totalPrice = sum - discount;
     }
 
