@@ -1,8 +1,12 @@
 package com.matthew.checkout.checkoutcomponent;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.matthew.checkout.checkoutcomponent.domain.Item;
+import com.matthew.checkout.checkoutcomponent.domain.PriceCalculator;
 import com.matthew.checkout.checkoutcomponent.service.CheckoutService;
 import com.matthew.checkout.checkoutcomponent.web.CheckoutController;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +15,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,11 +39,19 @@ public class CheckoutControllerTest {
     @MockBean
     private CheckoutService service;
 
+    private Item item;
+    private List<Item> items;
+
+    @Before
+
+    public void setup() {
+        item = new Item();
+        item.setItemName("A");
+        items = Arrays.asList(item);
+    }
+
     @Test
     public void getItemsTest() throws Exception {
-        Item item = new Item();
-        item.setItemName("A");
-        List<Item> items = Arrays.asList(item);
         given(service.getItems()).willReturn(items);
         mvc.perform(get("/items")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -53,8 +64,21 @@ public class CheckoutControllerTest {
 
     @Test
     public void addItemTest() throws Exception {
+         mvc.perform(post("/items")
+                 .contentType(MediaType.APPLICATION_JSON)
+                 .content(new Item().toString().getBytes()))
+                 .andExpect(mvcResult -> status().isOk());
+    }
 
-
+    @Test
+    public void getTotalPriceTest() throws Exception {
+        PriceCalculator calc = new PriceCalculator(items);
+        given(service.getPrice()).willReturn(calc);
+        mvc.perform(get("/items/price")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(org.hamcrest.Matchers.containsString(
+                        "{\"totalPrice\":0.0,\"discount\":0.0}")));
     }
 
 }
