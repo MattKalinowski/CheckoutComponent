@@ -27,11 +27,11 @@ public class CheckoutService {
         itemRepository.save(item);
     }
 
-    public double getPrice() {
+    public PriceCalculator getPrice() {
         PriceCalculator calc = new PriceCalculator(getItems());
         calc.determineDiscount();
         calc.calculateTotalPrice();
-        return calc.getTotalPrice();
+        return calc;
     }
 
     public void deleteItem(long itemId) {

@@ -1,6 +1,7 @@
 package com.matthew.checkout.checkoutcomponent.web;
 
 import com.matthew.checkout.checkoutcomponent.domain.Item;
+import com.matthew.checkout.checkoutcomponent.domain.PriceCalculator;
 import com.matthew.checkout.checkoutcomponent.service.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class CheckoutController {
     }
 
     @GetMapping("items/price")
-    public double getTotalPrice() {
+    public PriceCalculator getTotalPrice() {
         return checkoutService.getPrice();
     }
 

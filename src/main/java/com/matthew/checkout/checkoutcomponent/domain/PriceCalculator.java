@@ -7,8 +7,8 @@ import static com.matthew.checkout.checkoutcomponent.domain.ItemUtils.*;
 public class PriceCalculator implements IPriceCalculator {
     
     private List<Item> items;
-    private double discount;
     private double totalPrice;
+    private double discount;
 
     public PriceCalculator(List<Item> items) {
         this.items = items;
