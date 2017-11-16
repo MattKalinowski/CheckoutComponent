@@ -9,8 +9,8 @@ You can either run the app from IDE console level or you can build a project wit
 
 ### How to use it
 
-Since the application itself doen't include user interface, all work takes place in the background.
-You can test the API using special tool, like Postman.
+Since the application itself doen't include a user interface, all work takes place in the background.
+You can test the API using a tool like Postman.
 
 **1. Add items to the basket**
 
@@ -18,7 +18,7 @@ You can test the API using special tool, like Postman.
 POST http://localhost:8001/items
 ```
 
-JSON body:
+JSON body should be set as following:
 
 ```
 {
@@ -36,7 +36,7 @@ Each item has its own, unique price.
 GET http://localhost:8001/items
 ```
 
-This way you can see all scanned items, each having ID number, name and price. 
+This way you can see all the scanned items, each one has its own ID number, name and price. 
 
 
 **3. Calculate total price of items**
@@ -45,7 +45,7 @@ This way you can see all scanned items, each having ID number, name and price.
 GET http://localhost:8001/items/price
 ```
 
-The total price will be a worth of all items, minus discount. Discount applies only when you buy certain amount of items, each items has special discount. When you buy more than 4 of item "D", you'll get 4.5 discount for each acquired item "D".
+The total price will be a value of all items, minus discount. Discount applies only when you buy a certain amount of items, each item has a special discount. When you buy more than 4 of item "D", you'll get 4.5 discount for each acquired item "D".
 
 
 **4. Delete unwanted item**
