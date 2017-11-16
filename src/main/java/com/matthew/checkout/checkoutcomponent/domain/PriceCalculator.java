@@ -15,6 +15,11 @@ public class PriceCalculator implements IPriceCalculator {
     }
 
     @Override
+    public double quantityOfItem(String name) {
+        return items.stream().filter(item -> item.getItemName().equals(name)).count();
+    }
+
+    @Override
     public void determineDiscount() {
 
         if (quantityOfItem("A") > 14) {
@@ -31,14 +36,12 @@ public class PriceCalculator implements IPriceCalculator {
         }
     }
 
-    public double quantityOfItem(String name) {
-        return items.stream().filter(item -> item.getItemName().equals(name)).count();
-    }
-
     @Override
     public void calculateTotalPrice() {
-        double sum = items.stream().mapToDouble(item -> item.getPrice()).sum();
-        totalPrice = sum - discount;
+        for (Item i : items) {
+            totalPrice += i.getPrice();
+        }
+        totalPrice -= discount;
     }
 
     public double getTotalPrice() {

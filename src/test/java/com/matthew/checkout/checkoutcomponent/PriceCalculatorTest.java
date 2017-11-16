@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,14 +50,11 @@ public class PriceCalculatorTest {
         calc.determineDiscount();
         assertEquals(22.5, calc.getDiscount(), 0.0);
     }
-
-
-    /*    this test needs to be fixed
+/*
     @Test
     public void calculateTotalPriceTest() {
         calc.calculateTotalPrice();
         assertEquals(50.0, calc.getTotalPrice(), 0.0);
     }
-    */
-
+*/
 }
